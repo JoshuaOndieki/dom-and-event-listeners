@@ -81,6 +81,7 @@ button {
 .todo {
     align-items: center;
     border: 1px solid aquamarine;
+    border-radius: 0.5rem;
     display: flex;
     justify-content: space-between;
     margin: 0.5rem auto;
