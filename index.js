@@ -8,9 +8,9 @@ function generateUUID() {
     return uuid;
 }
 
+
 class DBLocalStorage {
     constructor() {
-        console.log('in constructor');
         let todosData = JSON.parse(localStorage.getItem('todos'));
 
         if (todosData == null) {
@@ -146,12 +146,19 @@ function createTodoNode(todoData) {
 
 // Rerender todos on the webapp
 function appendTodos(todosData) {
+    // reverse the todos to display it starting with the latest
+    const keys = Object.keys(todosData);
+    keys.reverse();
+    const reversedtodosData = {};
+    keys.forEach(key => {
+    reversedtodosData[key] = todosData[key];
+    });
     todosElement = document.getElementById("todos");
 
-    if (Object.keys(todosData).length) {
+    if (Object.keys(reversedtodosData).length) {
         todosElement.innerHTML = "";
-        for (const key in todosData) {
-            let todoData = {...{id: key}, ...todosData[key]};
+        for (const key in reversedtodosData) {
+            let todoData = {...{id: key}, ...reversedtodosData[key]};
             todosElement.appendChild(createTodoNode(todoData))
         }
     }
